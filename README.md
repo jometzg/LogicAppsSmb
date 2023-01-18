@@ -90,3 +90,29 @@ It should be notes that the simplest way of managing the VM will be to put a pub
 The SMB server itself is exposed on port 445. To avoid difficulties with exposing this to the Internet, the logic apps will access the SMB server via its private IP address - requests being routed over VNet peering.
 
 ### Build the logic app workflows
+
+#### Get File Contents
+
+![alt text](images/smb-get-file-content.png "logic app")
+
+```
+POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
+Content-Type: application/json
+{
+    "filename": "another.txt"
+}
+![image](https://user-images.githubusercontent.com/56820659/213207430-d72a45ee-494a-453f-9297-1f81dafa616e.png)
+
+```
+#### Add a file
+
+![alt text](images/smb-get-file-content.png "logic app")
+
+#### List files on the share
+
+![alt text](images/smb-get-file-content.png "logic app")
+
+
+#### Triger on file change and copy to blob
+
+This is a future scenarion
