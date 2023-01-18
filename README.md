@@ -1,12 +1,12 @@
 # Azure Logic Apps integration with on-premise SMB file shares
 
-A demonstration of how logic apps can be used to integrate with on-premise SMB file shares
+A demonstration of how logic apps can be used to integrate with on-premise [SMB](https://en.wikipedia.org/wiki/Server_Message_Block) file shares
 
 ## Why is this a problem?
 
-Azure Integration Series and Logic Apps in particular provide an effecient means for teams to build integrations between systems.
+Azure Integration Series and [Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview) in particular provide an effecient means for teams to build integrations between systems.
 
-When logic apps are hosted in the standard mode, they use the Azure App Services runtime which exists in a [sandbox](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox). This sandbox has some network port restrictions - specifically port 445 which is the standard port that the SMB protocol uses. So, when running  a workflow like this:
+When logic apps are hosted in the standard tier, they use the Azure App Services runtime which exists in a [sandbox](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox). This sandbox has some network port restrictions - specifically port 445 which is the standard port that the SMB protocol uses. So, when running  a workflow like this:
 
 ![alt text](images/smb-get-file-content.png "logic app")
 
