@@ -10,6 +10,16 @@ When logic apps are hosted in the standard mode, they use the Azure App Services
 
 ![alt text](images/smb-get-file-content.png "logic app")
 
-the "File System" actions will not be able to "reach" the target SMB server.
+the "File System" actions (in this case the Get File Contents action) will not be able to "reach" the target SMB server. Thus the workflow will not work corretly.
+
+This behaviour will be the same for web apps or Functions, which also run on the App Service runtime.
+
+What is needed is to avoid this *sandbox* issue, but to still make use of the same set of high-level tooling.
+
+## What can be done?
+
+Logic apps have an [Integration service environment}(https://learn.microsoft.com/en-us/azure/logic-apps/ise-manage-integration-service-environment), which is one approach, but this capability is 
+
+## Demonstration Scenario
 
 ![alt text](images/demo-scenario.png "Demo Scenario")
