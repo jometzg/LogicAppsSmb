@@ -121,7 +121,7 @@ Content-Type: application/json
 
 #### List files on the share
 
-![alt text](images/smb-list-files.png "logic app")
+![alt text](images/smb-list-flies.png "logic app")
 
 
 ```
