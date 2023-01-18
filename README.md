@@ -98,20 +98,40 @@ The SMB server itself is exposed on port 445. To avoid difficulties with exposin
 ```
 POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
 Content-Type: application/json
+
 {
     "filename": "another.txt"
 }
-![image](https://user-images.githubusercontent.com/56820659/213207430-d72a45ee-494a-453f-9297-1f81dafa616e.png)
-
 ```
+
 #### Add a file
 
-![alt text](images/smb-get-file-content.png "logic app")
+![alt text](images/smb-add-file.png "logic app")
+
+```
+POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
+Content-Type: application/json
+
+{
+    "filename": "anotherone.txt",
+    "textvalue": "hello world"
+}
+
+```
 
 #### List files on the share
 
-![alt text](images/smb-get-file-content.png "logic app")
+![alt text](images/smb-list-files.png "logic app")
 
+
+```
+POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
+Content-Type: application/json
+
+{
+}
+
+```
 
 #### Triger on file change and copy to blob
 
