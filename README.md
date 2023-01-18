@@ -91,6 +91,23 @@ The SMB server itself is exposed on port 445. To avoid difficulties with exposin
 
 ### Build the logic app workflows
 
+All of the workflows are HTTP triggered and also respond with an HTTP response. This may not be the shape of a real logic app flow, but it allows easy demonstration.
+
+All of the workflows also use the *Files System* set of actions.
+
+![alt text](images/smb-files-section.png "logic app files section")
+
+which has the following actions:
+
+![alt text](images/smb-files-actions.png "logic app file system actions")
+
+#### Create a Connection to the SMB Server
+
+This is done on the first workflow, but is shared across all other workflows that uses the File System actions.
+
+![alt text](images/smb-files-connection.png "logic app file system connection setup")
+
+
 #### Get File Contents
 
 ![alt text](images/smb-get-file-content.png "logic app")
