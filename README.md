@@ -95,6 +95,7 @@ The SMB server itself is exposed on port 445. To avoid difficulties with exposin
 
 ![alt text](images/smb-get-file-content.png "logic app")
 
+Request
 ```
 POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
 Content-Type: application/json
@@ -104,10 +105,20 @@ Content-Type: application/json
 }
 ```
 
+Response
+```
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: text/plain; charset=utf-8
+
+hello Dave
+```
+
 #### Add a file
 
 ![alt text](images/smb-add-file.png "logic app")
 
+Request
 ```
 POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
 Content-Type: application/json
@@ -116,21 +127,61 @@ Content-Type: application/json
     "filename": "anotherone.txt",
     "textvalue": "hello world"
 }
-
 ```
 
 #### List files on the share
 
 ![alt text](images/smb-list-flies.png "logic app")
 
-
+Request
 ```
 POST https://<your-function-app-name>.<your-ase-name>.p.azurewebsites.net:443/api/<your-workflow-name>/triggers/manual/invoke
 Content-Type: application/json
 
 {
 }
+```
 
+Response
+```
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+
+[
+  {
+    "createdTime": "2023-01-18T11:30:11.9144949Z",
+    "name": "another.txt",
+    "path": "/another.txt",
+    "size": 0,
+    "lastUpdatedTime": "2023-01-18T11:30:11.9144949Z",
+    "isFolder": false
+  },
+  {
+    "createdTime": "2023-01-17T16:54:28.6885263Z",
+    "name": "test.txt",
+    "path": "/test.txt",
+    "size": 0,
+    "lastUpdatedTime": "2023-01-17T16:54:28.6885263Z",
+    "isFolder": false
+  },
+  {
+    "createdTime": "2023-01-18T11:38:38.2342479Z",
+    "name": "anotherone.txt",
+    "path": "/anotherone.txt",
+    "size": 0,
+    "lastUpdatedTime": "2023-01-18T11:38:38.2425642Z",
+    "isFolder": false
+  },
+  {
+    "createdTime": "2023-01-18T12:09:42.3338062Z",
+    "name": "anothertwo.txt",
+    "path": "/anothertwo.txt",
+    "size": 0,
+    "lastUpdatedTime": "2023-01-18T12:09:42.3530267Z",
+    "isFolder": false
+  }
+]
 ```
 
 #### Triger on file change and copy to blob
