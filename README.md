@@ -2,4 +2,4 @@
 
 A demonstration of how logic apps can be used to integrate with on-premise SMB shares
 
-![alt text](images/Demo-scenario.png "Demo Scenario")
+![alt text](images/demo-scenario.png "Demo Scenario")
