@@ -4,7 +4,7 @@ A demonstration of how logic apps can be used to integrate with on-premise [SMB]
 
 ## Why is this a problem?
 
-Azure Integration Series and [Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview) in particular provide an effecient means for teams to build integrations between systems.
+Azure [Integration Series](https://azure.microsoft.com/en-gb/products/category/integration/) and [Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview) in particular provide an effecient means for teams to build integrations between systems.
 
 When logic apps are hosted in the standard tier, they use the Azure App Services runtime which exists in a [sandbox](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox). This sandbox has some network port restrictions - specifically port 445 which is the standard port that the SMB protocol uses. So, when running  a workflow like this:
 
