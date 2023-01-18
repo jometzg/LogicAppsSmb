@@ -32,7 +32,7 @@ In the above diagram, the demonstration includes both how to build logic apps in
 
 The logic apps in the demonstration provide HTTP API endpoints to allow you to test out SMB access. Your own logic app workloads may not be implemented as HTTP triggered ones, but for the purposes of a demonstration, it provides an easy means of using an HTTP REST client to fire requests against the SMB server.
 
-Looking on the diagram, there are 2 virtual networks (VNets), one containing the ASE and its logic apps and the second one containing the demo virtual machine with a Samba server. The two VNets are peered so that traffic may flow from the ASE's VNet to the virtual machine's VNet. It is important that these VNets are NOT on overlapping address spaces, otherwise the requests will not route over the peering.
+Looking on the diagram, there are 2 virtual networks (VNets), one containing the ASE and its logic apps and the second one containing the demo virtual machine with a Samba server. The two VNets are [peered](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview) so that traffic may flow from the ASE's VNet to the virtual machine's VNet. It is important that these VNets are NOT on overlapping address spaces, otherwise the requests will not route over the peering.
 
 The demonstration logic apps have written to:
 1. Get the contents of a given file in the SMB share by its filename (an assumprtion is that these are text files)
