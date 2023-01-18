@@ -42,3 +42,51 @@ The demonstration logic apps have written to:
 
 The logic apps are all built conventionally on the standard logic apps design surface, but with the logic app created to run in the ASE. To make life easier, the ASE can be provisioned with a public IP address.
 
+## Building the demonstration
+
+The demonstration is in two parts:
+1. Building a target SMB server. This is optional if you have one already
+2. Building the ASE-hosted logic apps. As part of this some VNet build is also needed.
+
+
+### Build the VNets
+
+There are two VNets, one for the ASE and the other for the SMB server. These VNets should not have overlapping address spaces.
+
+1. Provision ASE Vnet with a /16 address space
+2. Add a /24 subnet for the ASE
+3. Provision SMB VNet with a /16 address space (distinct from the ASE VNet)
+4. Add a /24 subnet for the virtual machine
+5. Peer the SMB server Vnet with the ASE Vnet
+
+Network requests should be able to route from the ASE VNet to the SMMB VNet
+
+### Build the ASE
+
+1. Provision an ASE v3 (you can decide public or ILB - it is easiest to build a public-facing one)
+2. Provision an Isolated Service plan against the ASE
+
+At the time of writing, ASE v3 deployment takes some hours. Be prepared to wait for this to complete. The isolated service plan itself also will take approximately an hour too. 
+
+### Build the logic app
+
+Provision a logic app that uses the above isolated service plan. This then can have several different *workflows*. Note that older logic apps had a one-to-one relationship between the logic app and the workflow. In Logic Apps Standard, you define the app and then later build one or more workflows.
+
+### Build the SMB Server virtual machine
+
+The SMB server is really just a virtual machine that runs the SMB service. There is a really helpful external [guide](https://phoenixnap.com/kb/ubuntu-samba) to installing and configuring Samba as an SMB server on a Linux machine. This is the basis for this step.
+
+Steps:
+1. Provision a Linux VM - a burstable one can be low cost.
+2. This needs to be provisioned inside one of the subnets in the SMB VNet
+3. Ubuntu Server 20.04 is a decent choice
+4. Install Samba server
+5. Configure the server
+6. Add a SMB user and give them access control
+7. Test on your PC using "Add Network Drive" in Explorer.
+
+It should be notes that the simplest way of managing the VM will be to put a public IP address on the VM. This could be disallowed or could be controlled by policy on your subscription. Another approach is to use [Azure Bastion](https://azure.microsoft.com/en-gb/products/azure-bastion). But you will need to SSH onto the VM to perform the Samba configuration steps.
+
+The SMB server itself is exposed on port 445. To avoid difficulties with exposing this to the Internet, the logic apps will access the SMB server via its private IP address - requests being routed over VNet peering.
+
+### Build the logic app workflows
