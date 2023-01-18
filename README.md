@@ -30,3 +30,15 @@ The rest of this article looks in more detail about how to build a demonstration
 
 In the above diagram, the demonstration includes both how to build logic apps inside an ASE as well as a sample target server that implements a file share using the SMB protocol. If you already have a network visible SMB server, you need not create one yourself.
 
+The logic apps in the demonstration provide HTTP API endpoints to allow you to test out SMB access. Your own logic app workloads may not be implemented as HTTP triggered ones, but for the purposes of a demonstration, it provides an easy means of using an HTTP REST client to fire requests against the SMB server.
+
+Looking on the diagram, there are 2 virtual networks (VNets), one containing the ASE and its logic apps and the second one containing the demo virtual machine with a Samba server. The two VNets are peered so that traffic may flow from the ASE's VNet to the virtual machine's VNet. It is important that these VNets are NOT on overlapping address spaces, otherwise the requests will not route over the peering.
+
+The demonstration logic apps have written to:
+1. Get the contents of a given file in the SMB share by its filename (an assumprtion is that these are text files)
+2. List details of all of the files in the share
+3. Add a file of given contents to the share
+4. Trigger off a change to the files in the share and store in a blob storage container
+
+The logic apps are all built conventionally on the standard logic apps design surface, but with the logic app created to run in the ASE. To make life easier, the ASE can be provisioned with a public IP address.
+
