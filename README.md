@@ -18,8 +18,15 @@ What is needed is to avoid this *sandbox* issue, but to still make use of the sa
 
 ## What can be done?
 
-Logic apps have an [Integration service environment}(https://learn.microsoft.com/en-us/azure/logic-apps/ise-manage-integration-service-environment), which is one approach, but this capability is 
+Logic apps have an [Integration service environment](https://learn.microsoft.com/en-us/azure/logic-apps/ise-manage-integration-service-environment), which is one approach, but this capability is due to be retired on 31st August 2024.
+
+Another approach is to use the single-tenant version of App Service known as the [App Service Environment](https://learn.microsoft.com/en-us/azure/app-service/environment/overview) (ASE) as its runtime does not have the restictions that the multi-tenant App Service does. An ASE v3 is deployed into an Azure virtual network, so it is ready out-of-the-box to send requests to on-premise servers provided that its virtual network is in some way peered that allows routing to the on-premise SMB server.
+
+The rest of this article looks in more detail about how to build a demonstration of this scenario.
 
 ## Demonstration Scenario
 
 ![alt text](images/demo-scenario.png "Demo Scenario")
+
+In the above diagram, the demonstration includes both how to build logic apps inside an ASE as well as a sample target server that implements a file share using the SMB protocol. If you already have a network visible SMB server, you need not create one yourself.
+
