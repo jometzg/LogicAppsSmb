@@ -1,0 +1,44 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "List_files_and_subfolders_in_a_folder": {
+                "inputs": {
+                    "parameters": {
+                        "folderPath": "/"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "FileSystem-2",
+                        "operationId": "listFolder",
+                        "serviceProviderId": "/serviceProviders/FileSystem"
+                    }
+                },
+                "runAfter": {},
+                "type": "ServiceProvider"
+            },
+            "Response": {
+                "inputs": {
+                    "body": "@body('List_files_and_subfolders_in_a_folder')",
+                    "statusCode": 200
+                },
+                "kind": "http",
+                "runAfter": {
+                    "List_files_and_subfolders_in_a_folder": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "manual": {
+                "inputs": {},
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "kind": "Stateful"
+}
