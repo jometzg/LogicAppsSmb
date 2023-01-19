@@ -1,0 +1,57 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Create_file": {
+                "inputs": {
+                    "parameters": {
+                        "body": "@triggerBody()?['textvalue']",
+                        "filePath": "@triggerBody()?['filename']"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "FileSystem-2",
+                        "operationId": "createFile",
+                        "serviceProviderId": "/serviceProviders/FileSystem"
+                    }
+                },
+                "runAfter": {},
+                "type": "ServiceProvider"
+            },
+            "Response": {
+                "inputs": {
+                    "body": "@{body('Create_file')?['size']} bytes",
+                    "statusCode": 200
+                },
+                "kind": "http",
+                "runAfter": {
+                    "Create_file": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "filename": {
+                                "type": "string"
+                            },
+                            "textvalue": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "kind": "Stateful"
+}
